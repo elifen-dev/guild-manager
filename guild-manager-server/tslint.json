@@ -7,9 +7,17 @@
     "no-unused-expression": true
   },
   "rules": {
+    "eofline": false,
+    "align": [
+      false
+    ],
     "quotemark": [
       true,
       "single"
+    ],
+    "indent": [
+      true,
+      "tabs"
     ],
     "member-access": [
       false
@@ -24,11 +32,54 @@
     "member-ordering": [
       false
     ],
+    "curly": false,
     "interface-name": [
       false
     ],
+    "array-type": [
+      false
+    ],
+    "no-empty-interface": false,
+    "no-empty": false,
     "arrow-parens": false,
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
+    "object-literal-shorthand": false,
+    "no-unused-expression": false,
+    "max-classes-per-file": [
+      false
+    ],
+    "variable-name": [
+      false
+    ],
+    "one-line": [
+      false
+    ],
+    "one-variable-per-declaration": [
+      false
+    ],
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "property-declaration",
+      "parameter",
+      "member-variable-declaration"
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type"
+    ],
+    "semicolon": [
+      true,
+      "always"
+    ],
+    "trailing-comma": [
+      false
+    ]
   },
   "rulesDirectory": []
 }
