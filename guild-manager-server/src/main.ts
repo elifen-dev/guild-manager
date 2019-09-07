@@ -12,9 +12,9 @@ if (NODE_ENV === 'dev') {
 		transports: [
 			new (winston.transports.Console)({
 				format: winston.format.combine(
-					winston.format.colorize({colors: {info: 'blue', debug: 'yellow', error: 'red'}}),
+					winston.format.colorize({ colors: { info: 'blue', debug: 'yellow', error: 'red' } }),
 					winston.format.timestamp(),
-					winston.format.simple(),
+					winston.format.simple()
 				),
 				level: LOG_CONSOLE_LEVEL
 			})

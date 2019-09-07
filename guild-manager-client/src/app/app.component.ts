@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {AuthService} from './services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
 	selector: 'app-root',
@@ -7,4 +9,12 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
 	title = 'guild-manager-client';
+
+	constructor(private authService: AuthService, private router: Router) {
+
+	}
+
+	login(): void {
+		this.router.navigateByUrl('/api/auth/discord-login');
+	}
 }

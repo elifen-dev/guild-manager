@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USER } from '../environment';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
 	imports: [TypeOrmModule.forRoot({
@@ -14,7 +15,7 @@ import { DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USER } from '../environment'
 		database: DATABASE_NAME,
 		entities: [__dirname + '/**/*.entity{.ts,.js}'],
 		synchronize: true
-	})],
+	}), AuthModule],
 	controllers: [AppController],
 	providers: [AppService]
 })

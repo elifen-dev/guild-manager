@@ -4,8 +4,9 @@ export const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD || 'toor';
 export const DATABASE_USER = process.env.DATABASE_USER || 'root';
 
 // ********* AUTHENTICATION *********
-export const CLIENT_ID = process.env.CLIENT_ID || '';
-export const CLIENT_SECRET = process.env.CLIENT_SECRET || '';
+export const CLIENT_ID = process.env.CLIENT_ID || '619990232007180288';
+export const CLIENT_SECRET = process.env.CLIENT_SECRET || '_CyaWXucWBbDkIzUeDmE--ke-_JgAsDy';
+export const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:4200/api/auth/discord/login';
 
 // ********* ENVIRONMENT *********
 export const NODE_ENV = process.env.NODE_ENV || 'dev';
