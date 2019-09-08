@@ -11,3 +11,4 @@ export const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:4200/a
 // ********* ENVIRONMENT *********
 export const NODE_ENV = process.env.NODE_ENV || 'dev';
 export const LOG_CONSOLE_LEVEL = process.env.LOG_CONSOLE_LEVEL || 'info';
+export const TOKEN_COOKIE_NAME = process.env.TOKEN_COOKIE_NAME || 'authToken';

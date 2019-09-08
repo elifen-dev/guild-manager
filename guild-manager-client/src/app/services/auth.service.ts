@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {User} from '../modules/user/user.dto';
+import {plainToClass} from 'class-transformer';
 
 @Injectable({
 	providedIn: 'root'
@@ -10,11 +12,16 @@ export class AuthService {
 
 	}
 
-	async discordLogin(): Promise<void> {
+	/**
+	 * Get currently authenticated user.
+	 */
+	async getCurrentUser(): Promise<User> {
 		try {
-			return await this.httpClient.get<void>('/api/auth/discord-login').toPromise();
+			const json = await this.httpClient.get<object>('api/user/authenticated').toPromise();
+			return plainToClass(User, json);
 		} catch (exception) {
-			console.log('error while login with discord.', exception);
+			console.error('Authenticated user not found.', exception);
+			return null;
 		}
 	}
 }

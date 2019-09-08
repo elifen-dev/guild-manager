@@ -5,6 +5,8 @@ import * as winston from 'winston';
 import { LOG_CONSOLE_LEVEL, NODE_ENV } from '../environment';
 import { format } from 'winston';
 import { transports } from 'winston';
+import * as cookieParser from 'cookie-parser';
+import { AuthGuard } from './auth/auth.guard';
 
 // Logger configuration
 if (NODE_ENV === 'dev') {
@@ -46,6 +48,9 @@ async function bootstrap(): Promise<void> {
 		.build();
 	const document = SwaggerModule.createDocument(app, options);
 	SwaggerModule.setup('swagger-api', app, document);
+
+	// Parse incoming cookies
+	app.use(cookieParser());
 
 	// Start the app.
 	const port: number = 3000;

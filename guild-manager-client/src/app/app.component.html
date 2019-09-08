@@ -1,3 +1,5 @@
 <a class="discord-logger" [href]="'api/auth/discord/redirect'">
     Login with discord
 </a>
+<div *ngIf="avatarUrl" class="avatar" [style.background-image]="'url(' + avatarUrl + ')'"></div>
+<div>{{user.username}}</div>

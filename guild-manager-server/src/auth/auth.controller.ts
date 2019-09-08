@@ -1,8 +1,8 @@
 import { BadRequestException, Controller, Get, Query, Req, Res } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } from '../../environment';
 import { AuthService, IDiscordTokenResponse } from './auth.service';
+import { TOKEN_COOKIE_NAME } from '../../environment';
 
 @Controller('api/auth')
 @ApiUseTags('Auth')
@@ -14,8 +14,7 @@ export class AuthController {
 
 	@Get('/discord/redirect')
 	async redirectToDiscord(@Res() response: Response): Promise<void> {
-		// tslint:disable-next-line:max-line-length
-		const redirectUrl: string = `https://discordapp.com/api/oauth2/authorize?client_id=${CLIENT_ID}&scope=identify&response_type=code&redirect_uri=${REDIRECT_URI}`;
+		const redirectUrl: string = this.authService.getDiscordAuthUrl();
 		return response.redirect(redirectUrl);
 	}
 
@@ -25,7 +24,12 @@ export class AuthController {
 			throw new BadRequestException('Discord code is missing.');
 		}
 		const discordResponse: IDiscordTokenResponse = await this.authService.getDiscordToken(code);
+
+		// Store the retrieved token into a cookie.
 		const token: string = discordResponse.access_token;
-		return response.redirect(`/?token=${token}`);
+		response.cookie(TOKEN_COOKIE_NAME, token);
+
+		// Redirect to the application home.
+		return response.redirect('/');
 	}
 }
