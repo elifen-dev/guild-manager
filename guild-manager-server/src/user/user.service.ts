@@ -6,12 +6,13 @@ import { Repository } from 'typeorm';
 import { UserDto } from './dto/user.dto';
 import { classToPlain, plainToClass } from 'class-transformer';
 import * as winston from 'winston';
+import {AbstractService} from '../generic/abstract-service';
 
 @Injectable()
-export class UserService {
+export class UserService extends AbstractService<UserEntity> {
 
 	constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>) {
-
+		super(userRepository);
 	}
 
 	/**

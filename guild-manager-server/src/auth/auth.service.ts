@@ -2,11 +2,7 @@ import { BadRequestException, HttpService, Injectable } from '@nestjs/common';
 import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, TOKEN_COOKIE_NAME } from '../../environment';
 import * as winston from 'winston';
 import * as btoa from 'btoa';
-import { Request } from 'express';
-
-export interface GmRequest extends Request {
-	user: IDiscordUser;
-}
+import {GmRequest} from '../generic/gm-request';
 
 export interface IDiscordTokenResponse {
 	access_token: string;

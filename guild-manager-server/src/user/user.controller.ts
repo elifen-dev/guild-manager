@@ -3,15 +3,17 @@ import { ApiUseTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { UserDto } from './dto/user.dto';
 import { AuthGuard } from '../auth/auth.guard';
-import { GmRequest } from '../auth/auth.service';
+import {AbstractController} from '../generic/abstract-controller';
+import {UserEntity} from './models/user.entity';
+import {GmRequest} from '../generic/gm-request';
 
 @Controller('api/user')
 @ApiUseTags('User')
 @UseGuards(AuthGuard)
-export class UserController {
+export class UserController extends AbstractController<UserEntity> {
 
 	constructor(private userService: UserService) {
-
+		super(userService);
 	}
 
 	@Get('authenticated')
