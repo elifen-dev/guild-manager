@@ -2,7 +2,7 @@ import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { UserDto } from './dto/user.dto';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard } from '../auth/guards/auth.guard';
 import { AbstractController } from '../generic/abstract-controller';
 import { UserEntity } from './models/user.entity';
 import { GmRequest } from '../generic/gm-request';

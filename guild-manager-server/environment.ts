@@ -12,3 +12,6 @@ export const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:4200/a
 export const NODE_ENV = process.env.NODE_ENV || 'dev';
 export const LOG_CONSOLE_LEVEL = process.env.LOG_CONSOLE_LEVEL || 'info';
 export const TOKEN_COOKIE_NAME = process.env.TOKEN_COOKIE_NAME || 'authToken';
+
+// ********* ADMINISTRATION *********
+export const SUPER_ADMIN_DISCORD_ID = process.env.SUPER_ADMIN_DISCORD_ID || '139804254926798848';

@@ -3,6 +3,7 @@ import { AbstractService } from './abstract-service';
 import { AbstractEntity } from './abstract-entity';
 import { AbstractDto } from './abstract.dto';
 import { ApiImplicitParam } from '@nestjs/swagger';
+import { AdminOnly } from '../auth/decorators/admin-only.decorator';
 
 export abstract class AbstractController<MODEL extends AbstractEntity, DTO extends AbstractDto> {
 
@@ -27,16 +28,19 @@ export abstract class AbstractController<MODEL extends AbstractEntity, DTO exten
 	}
 
 	@Post()
+	@AdminOnly()
 	async create(@Body() dto: DTO): Promise<DTO> {
 		return this.service.convertToDto(await this.service.create(dto));
 	}
 
 	@Put(':uuid')
+	@AdminOnly()
 	async update(@Param('uuid') uuid: string, @Body() dto: DTO): Promise<DTO> {
 		return this.service.convertToDto(await this.service.update(uuid, dto));
 	}
 
 	@Delete(':uuid')
+	@AdminOnly()
 	async delete(@Param('uuid') uuid: string): Promise<DTO> {
 		return this.service.convertToDto(await this.service.delete(uuid));
 	}
