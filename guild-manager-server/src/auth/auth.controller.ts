@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, Query, Req, Res } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query, Res } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { AuthService, IDiscordTokenResponse } from './auth.service';

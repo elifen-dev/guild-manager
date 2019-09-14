@@ -2,11 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as winston from 'winston';
+import { format, transports } from 'winston';
 import { LOG_CONSOLE_LEVEL, NODE_ENV } from '../environment';
-import { format } from 'winston';
-import { transports } from 'winston';
 import * as cookieParser from 'cookie-parser';
-import { AuthGuard } from './auth/auth.guard';
 
 // Logger configuration
 if (NODE_ENV === 'dev') {

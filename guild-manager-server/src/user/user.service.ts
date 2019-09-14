@@ -1,18 +1,32 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { IDiscordUser } from '../auth/auth.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './models/user.entity';
-import { Repository } from 'typeorm';
 import { UserDto } from './dto/user.dto';
-import { classToPlain, plainToClass } from 'class-transformer';
+import { classToPlain, plainToClass, plainToClassFromExist } from 'class-transformer';
 import * as winston from 'winston';
-import {AbstractService} from '../generic/abstract-service';
+import { AbstractService } from '../generic/abstract-service';
+import { DeepPartial, Repository } from 'typeorm';
 
 @Injectable()
-export class UserService extends AbstractService<UserEntity> {
+export class UserService extends AbstractService<UserEntity, UserDto> {
 
 	constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>) {
-		super(userRepository);
+		super('User', userRepository);
+	}
+
+	convertToDto(model: UserEntity): UserDto {
+		return plainToClass(UserDto, classToPlain(model));
+	}
+
+	convertToDtoList(models: UserEntity[]): UserDto[] {
+		return plainToClass(UserDto, classToPlain<UserEntity>(models));
+	}
+
+	protected async convertToEntity(dto: Partial<UserDto>): Promise<DeepPartial<UserEntity>> {
+		let entity: UserEntity = this.repository.create();
+		entity = plainToClassFromExist(entity, dto);
+		return entity;
 	}
 
 	/**
@@ -38,11 +52,11 @@ export class UserService extends AbstractService<UserEntity> {
 	 */
 	async getOrCreate(discordId: string, dto: Partial<UserDto>): Promise<UserEntity> {
 		if (!discordId) {
-			winston.error('Error in User service - getOrCreate: Missing parameter.', {discordId, dto});
+			winston.error('Error in User service - getOrCreate: Missing parameter.', { discordId, dto });
 			throw new BadRequestException('Missing parameter discordId');
 		}
 		try {
-			const existingUser: UserEntity = await this.userRepository.findOne({discordId});
+			const existingUser: UserEntity = await this.userRepository.findOne({ discordId });
 			let toSave: UserEntity = this.userRepository.create();
 			toSave.discordId = discordId;
 			if (existingUser) {
@@ -57,7 +71,7 @@ export class UserService extends AbstractService<UserEntity> {
 			// Create or update the entity.
 			return await this.userRepository.save(toSave);
 		} catch (exception) {
-			winston.error('Error in User Service - getOrCreate.', {exception});
+			winston.error('Error in User Service - getOrCreate.', { exception });
 			throw new InternalServerErrorException();
 		}
 	}
